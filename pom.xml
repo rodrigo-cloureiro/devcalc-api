@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.infnet</groupId>
-	<artifactId>devcalc</artifactId>
+	<artifactId>devcalc-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>devcalc</name>
 	<description>API REST que disponibiliza operações matemáticas</description>
