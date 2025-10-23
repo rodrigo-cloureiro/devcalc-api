@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class DevcalcApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(DevcalcApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(DevcalcApplication.class, args);
+    }
 }
