@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 public class CalculatorController {
     private final CalculatorService calculatorService;
 
+    // TODO - implementar try-catch nos endpoints abaixo para não estourar exceção por valores inválidos para A e B
     @GetMapping("/add")
     public ResponseEntity<OperationResult> add(OperationRequest request) {
         BigDecimal result = this.calculatorService.add(request.getA(), request.getB());
@@ -35,6 +36,7 @@ public class CalculatorController {
     }
 
     @GetMapping("/divide")
+    // TODO - implementar try-catch para não estourar exceção com divisão por zero
     public ResponseEntity<OperationResult> divide(OperationRequest request) {
         BigDecimal result = this.calculatorService.divide(request.getA(), request.getB());
         return ResponseEntity.status(HttpStatus.OK).body(new OperationResult(result, "Divisão"));
