@@ -1,9 +1,14 @@
 package br.com.infnet.devcalc.controller;
 
+import br.com.infnet.devcalc.model.OperationResult;
 import br.com.infnet.devcalc.model.dto.OperationRequest;
 import br.com.infnet.devcalc.service.CalculatorService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("")
@@ -12,22 +17,26 @@ public class CalculatorController {
     private final CalculatorService calculatorService;
 
     @GetMapping("/add")
-    public void add(OperationRequest request) {
-        System.out.println(this.calculatorService.add(request.getA(), request.getB()));
+    public ResponseEntity<OperationResult> add(OperationRequest request) {
+        BigDecimal result = this.calculatorService.add(request.getA(), request.getB());
+        return ResponseEntity.status(HttpStatus.OK).body(new OperationResult(result, "Adição"));
     }
 
     @GetMapping("/subtract")
-    public void subtract(OperationRequest request) {
-        System.out.println(this.calculatorService.subtract(request.getA(), request.getB()));
+    public ResponseEntity<OperationResult> subtract(OperationRequest request) {
+        BigDecimal result = this.calculatorService.subtract(request.getA(), request.getB());
+        return ResponseEntity.status(HttpStatus.OK).body(new OperationResult(result, "Subtração"));
     }
 
     @GetMapping("/multiply")
-    public void multiply(OperationRequest request) {
-        System.out.println(this.calculatorService.multiply(request.getA(), request.getB()));
+    public ResponseEntity<OperationResult> multiply(OperationRequest request) {
+        BigDecimal result = this.calculatorService.multiply(request.getA(), request.getB());
+        return ResponseEntity.status(HttpStatus.OK).body(new OperationResult(result, "Multiplicação"));
     }
 
     @GetMapping("/divide")
-    public void divide(OperationRequest request) {
-        System.out.println(this.calculatorService.divide(request.getA(), request.getB()));
+    public ResponseEntity<OperationResult> divide(OperationRequest request) {
+        BigDecimal result = this.calculatorService.divide(request.getA(), request.getB());
+        return ResponseEntity.status(HttpStatus.OK).body(new OperationResult(result, "Divisão"));
     }
 }
