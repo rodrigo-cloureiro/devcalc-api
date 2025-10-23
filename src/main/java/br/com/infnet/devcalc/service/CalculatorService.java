@@ -22,6 +22,6 @@ public class CalculatorService {
     public BigDecimal divide(BigDecimal a, BigDecimal b) {
         if (b.equals(BigDecimal.ZERO))
             throw new ArithmeticException("Divisão por zero");
-        return a.divide(b, RoundingMode.HALF_EVEN);
+        return a.divide(b, 2, RoundingMode.HALF_EVEN);
     }
 }
