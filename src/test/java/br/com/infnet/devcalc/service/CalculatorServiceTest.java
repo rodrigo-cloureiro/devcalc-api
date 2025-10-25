@@ -79,4 +79,17 @@ public class CalculatorServiceTest {
         BigDecimal result = this.calculatorService.divide(a, b);
         assertEquals(expected, result);
     }
+
+    @ParameterizedTest
+    @DisplayName("Deve lançar exceção ao tentar dividir por zero")
+    @CsvSource({
+            "3, 0",
+            "10, 0",
+            "1, 0",
+            "10, 0",
+            "10, 0"
+    })
+    public void divideError(BigDecimal a, BigDecimal b) {
+        assertThrows(ArithmeticException.class, () -> this.calculatorService.divide(a, b));
+    }
 }
