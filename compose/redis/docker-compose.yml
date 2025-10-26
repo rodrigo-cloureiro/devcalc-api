@@ -1,0 +1,20 @@
+services:
+  redis:
+    image: redis
+    container_name: redis-container
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - backend
+    volumes:
+      - redis_data:/data
+      - shared_container_data:/shared_container
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  redis_data:
+  shared_container_data:

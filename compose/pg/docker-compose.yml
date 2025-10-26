@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-container
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - backend
+    volumes:
+      - postgres_data:/var/lib/postgresql
+      - shared_container_data:/shared_container
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  shared_container_data:

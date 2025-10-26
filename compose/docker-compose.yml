@@ -1,0 +1,66 @@
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-container
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - backend
+    volumes:
+      - postgres_data:/var/lib/postgresql
+      - shared_container_data:/shared_container
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+
+  redis:
+    image: redis
+    container_name: redis-container
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - backend
+    volumes:
+      - redis_data:/data
+      - shared_container_data:/shared_container
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  busybox:
+    image: busybox
+    container_name: busybox-container
+    tty: true # Aloca um pseudo-TTY, proporcionando uma experiência de terminal interativa.
+    stdin_open: true # Mantém o STDIN aberto, permitindo interagir com o shell do container.
+    command:
+      - sh # Define o comando padrão a ser executado quando o container é iniciado, que é abrir um shell.
+    networks:
+      - backend
+    volumes:
+      - shared_container_data:/shared_container
+    healthcheck:
+      test: [ "CMD-SHELL", "echo", "ok" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  postgres_data:
+  redis_data:
+  shared_container_data:
+
+networks:
+  backend:
+    driver: bridge
